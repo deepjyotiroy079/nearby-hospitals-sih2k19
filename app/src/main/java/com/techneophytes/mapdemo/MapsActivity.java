@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
@@ -31,6 +32,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -41,7 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient client;
     private LocationRequest request;
     Location lastLocation;
-    private Marker currentLocationMarker;
+    private Marker currentLocationMarker; // this is a marker
     public static final int REQUEST_LOCATION_CODE = 99;
     GetNearByPlacesData getNearByPlacesData;
     int PROXIMITY_RADIUS = 15000;
@@ -96,6 +99,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap){
 
         mMap = googleMap;
+
+        if(mMap != null) {
+            mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                @Override
+                public View getInfoWindow(Marker marker) {
+                    return null;
+                }
+
+                @Override
+                public View getInfoContents(Marker marker) {
+
+                    View row = getLayoutInflater().inflate(R.layout.custom_snippet, null);
+                    TextView hospital_name = (TextView)row.findViewById(R.id.hospital_name);
+                    // TextView hospital_location = (TextView)row.findViewById(R.id.hospital_location);
+                    TextView total_bed_count = (TextView)row.findViewById(R.id.total_bed_count);
+                    TextView available_beds = (TextView)row.findViewById(R.id.available_beds);
+
+                    LatLng latLng = marker.getPosition();
+                    hospital_name.setText(marker.getTitle());
+                    total_bed_count.setText("Total Beds : 250");
+                    available_beds.setText("Vacant beds: 200");
+
+                    return row;
+                }
+            });
+        }
         Log.d(TAG, "onMapReady: Map is ready");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             buildGoogleApiClient();
