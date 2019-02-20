@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Map Demo</string>
     <string name="title_activity_maps">Google Map Demo</string>
+    <string name="title_activity_hospital">HospitalActivity</string>
 </resources>

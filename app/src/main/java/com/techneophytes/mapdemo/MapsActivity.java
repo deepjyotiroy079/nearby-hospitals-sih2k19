@@ -117,9 +117,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     TextView available_beds = (TextView)row.findViewById(R.id.available_beds);
 
                     LatLng latLng = marker.getPosition();
+
+                    /**Name of the hospital + the vicinity*/
                     hospital_name.setText(marker.getTitle());
-                    total_bed_count.setText("Total Beds : 250");
-                    available_beds.setText("Vacant beds: 200");
+
+                    /**Number of total beds*/
+                    // total_bed_count.setText("Total Beds : 250");
+
+                    /**Number of available beds*/
+                    // available_beds.setText("Vacant beds: 200");
 
                     return row;
                 }
@@ -145,7 +151,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     // onclick listener for button
-    public void onClick(View view) {
+    /*public void onClick(View view) {
 
         if(view.getId() == R.id.B_hospital) {
             mMap.clear();
@@ -161,7 +167,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Toast.makeText(this, "Showing nearby hospitals", Toast.LENGTH_LONG).show();
         }
         // Toast.makeText(this, "Some popup", Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     private String getUrl(double latitude, double longitude, String nearbyPlace) {
         StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
@@ -234,6 +240,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d(TAG, "onLocationChanged: latitude : "+location.getLatitude()+" longitude : "+location.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomBy(12));
+
+        mMap.clear();
+        String hospital = "hospital";
+        String url = getUrl(latitude, longitude, hospital);
+
+        Object dataTransfer[] = new Object[2];
+        dataTransfer[0] = mMap;
+        dataTransfer[1] = url;
+        Log.d(TAG, "onClick: latitude : "+latitude+" longitude : "+longitude);
+        getNearByPlacesData = new GetNearByPlacesData();
+        getNearByPlacesData.execute(dataTransfer);
+        Toast.makeText(this, "Showing nearby hospitals", Toast.LENGTH_LONG).show();
 
         if(client != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
