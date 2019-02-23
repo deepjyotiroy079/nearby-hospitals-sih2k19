@@ -6,4 +6,27 @@
     tools:context=".HospitalActivity"
     tools:showIn="@layout/activity_hospital">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:id="@+id/textView1"
+        android:text="@string/select_a_hospital_from_the_dropdown"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:layout_below="@id/textView1"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:text="Find Hospitals"
+        android:id="@+id/hospital_btn"
+        android:textColor="#fff"/>
+
+
 </RelativeLayout>

@@ -47,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker currentLocationMarker; // this is a marker
     public static final int REQUEST_LOCATION_CODE = 99;
     GetNearByPlacesData getNearByPlacesData;
-    int PROXIMITY_RADIUS = 15000;
+    int PROXIMITY_RADIUS = 10000;
     public double latitude, longitude;
 
 
@@ -176,7 +176,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
         googlePlaceUrl.append("&type="+nearbyPlace);
         googlePlaceUrl.append("&sensor=true");
-        googlePlaceUrl.append("&key="+"YOUR_API_HERE");
+        googlePlaceUrl.append("&key="+"AIzaSyCRzc11BAQZJ4s2hyjOq3iqQA2V0DyqyGs");
 
         Log.d("MapsActivity", "url = "+googlePlaceUrl.toString());
 
