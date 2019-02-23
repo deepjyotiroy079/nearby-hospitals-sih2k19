@@ -1,5 +1,6 @@
 package com.techneophytes.mapdemo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -29,11 +30,14 @@ public class HospitalActivity extends AppCompatActivity {
     private static final String HOSPITAL_NAME_URL = "http://192.168.43.47/hospital/getHospitalNames.php";
     private SpinnerDialog spinnerDialog;
     private Button hospital_btn;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital);
+
+        context = HospitalActivity.this;
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_location));
@@ -53,7 +57,11 @@ public class HospitalActivity extends AppCompatActivity {
         spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
             @Override
             public void onClick(String item, int position) {
-                Toast.makeText(HospitalActivity.this, item+" was selected", Toast.LENGTH_SHORT).show();
+                final String hospital = hospitalArrayList.get(position);
+                // Toast.makeText(HospitalActivity.this, item+" was selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, HospitalDetail.class);
+                intent.putExtra("hospital_name", hospital);
+                context.startActivity(intent);
             }
         });
 

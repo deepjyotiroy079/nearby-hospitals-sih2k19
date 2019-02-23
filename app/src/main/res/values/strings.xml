@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Map Demo</string>
-    <string name="title_activity_maps">Google Map Demo</string>
-    <string name="title_activity_hospital">HospitalActivity</string>
+    <string name="app_name">Max Healthcare App</string>
     <string name="select_a_hospital_from_the_dropdown">Select a hospital from the dropdown</string>
 </resources>
