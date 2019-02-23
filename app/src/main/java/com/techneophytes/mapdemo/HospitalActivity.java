@@ -3,25 +3,30 @@ package com.techneophytes.mapdemo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
 public class HospitalActivity extends AppCompatActivity {
     ArrayList<String> hospitalArrayList = new ArrayList<>();
+    private static final String HOSPITAL_NAME_URL = "http://192.168.43.47/hospital/getHospitalNames.php";
     private SpinnerDialog spinnerDialog;
     private Button hospital_btn;
 
@@ -61,9 +66,26 @@ public class HospitalActivity extends AppCompatActivity {
         });
     }
     private void initItems() {
-        for(int i=0;i<50;i++) {
-            hospitalArrayList.add("Hospital : "+(i+1));
-        }
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, HOSPITAL_NAME_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray array = new JSONArray(response);
+                    for(int i=0;i<array.length();i++) {
+                        JSONObject hospital = array.getJSONObject(i);
+                        hospitalArrayList.add(hospital.getString("hospital_name"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(HospitalActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        Volley.newRequestQueue(this).add(stringRequest);
     }
 
 }
