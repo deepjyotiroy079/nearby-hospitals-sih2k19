@@ -19,8 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".HospitalActivity"></activity>
         <activity
-            android:name=".HospitalActivity"
+            android:name=".SplashActivity"
             android:label="@string/title_activity_hospital"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
