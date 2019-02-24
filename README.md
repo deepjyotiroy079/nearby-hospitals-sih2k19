@@ -1,4 +1,4 @@
-# Nearby Hospitals
+# SIH 2019
 
 Before running the project, make sure to change both the API keys (Google Maps API and Google Places API)
 
