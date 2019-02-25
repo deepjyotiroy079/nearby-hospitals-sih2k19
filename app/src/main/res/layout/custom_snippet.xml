@@ -1,33 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:orientation="vertical"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="60dp"
+        android:id="@+id/linearLayout">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/hospital_name"
-            android:textSize="20sp"
-            android:text="hospital name" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="hospital name"
+            android:textSize="35sp"
+            tools:layout_conversion_absoluteHeight="27dp"
+            tools:layout_editor_absoluteY="60dp"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_conversion_absoluteWidth="129dp" />
+
+        <TextView
             android:id="@+id/total_bed_count"
-            android:textSize="17sp"
-            android:text="Total bed count" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Total bed count"
+            android:textSize="20sp"
+            tools:layout_conversion_absoluteHeight="23dp"
+            tools:layout_editor_absoluteY="87dp"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_conversion_absoluteWidth="120dp" />
+
+        <TextView
             android:id="@+id/available_beds"
-            android:textSize="17sp"
-            android:text="Available beds" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available beds"
+            android:textSize="20sp"
+            tools:layout_conversion_absoluteHeight="23dp"
+            tools:layout_editor_absoluteY="110dp"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_conversion_absoluteWidth="109dp" />
 
 
     </LinearLayout>
