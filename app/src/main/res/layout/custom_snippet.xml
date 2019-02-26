@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:orientation="vertical" android:layout_width="250dp"
+    android:layout_height="150dp"
+    android:layout_marginTop="260dp"
+    android:layout_marginLeft="80dp">
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
         android:orientation="vertical"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="60dp"
         android:id="@+id/linearLayout">
 
         <TextView
@@ -17,33 +17,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="hospital name"
-            android:textSize="35sp"
+            android:textSize="18sp"
             tools:layout_conversion_absoluteHeight="27dp"
             tools:layout_editor_absoluteY="60dp"
             tools:layout_editor_absoluteX="60dp"
-            tools:layout_conversion_absoluteWidth="129dp" />
+            tools:layout_conversion_absoluteWidth="129dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"/>
 
         <TextView
             android:id="@+id/total_bed_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total bed count"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:layout_conversion_absoluteHeight="23dp"
             tools:layout_editor_absoluteY="87dp"
             tools:layout_editor_absoluteX="60dp"
-            tools:layout_conversion_absoluteWidth="120dp" />
+            tools:layout_conversion_absoluteWidth="120dp"
+            android:paddingLeft="10dp"/>
 
         <TextView
             android:id="@+id/available_beds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Available beds"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:layout_conversion_absoluteHeight="23dp"
             tools:layout_editor_absoluteY="110dp"
             tools:layout_editor_absoluteX="60dp"
-            tools:layout_conversion_absoluteWidth="109dp" />
+            tools:layout_conversion_absoluteWidth="109dp"
+            android:paddingLeft="10dp"/>
 
 
     </LinearLayout>
