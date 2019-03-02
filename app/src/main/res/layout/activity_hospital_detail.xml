@@ -15,4 +15,20 @@
         android:text="Hospital_Name"
         android:gravity="center" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Total_Beds"
+        android:layout_below="@id/hospital_name"
+        android:textSize="20sp"
+        android:text="Total Beds"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Available_Beds"
+        android:layout_below="@id/Total_Beds"
+        android:textSize="20sp"
+        android:text="Available Beds"/>
+
 </RelativeLayout>

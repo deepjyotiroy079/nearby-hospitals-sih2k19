@@ -40,7 +40,7 @@ public class GetNearByPlacesData extends AsyncTask<Object, String, String> {
             HashMap<String, String> googlePlace = nearbyPlaceList.get(i);
 
             String placeName = googlePlace.get("place_name");
-            String vicinity = googlePlace.get("vicinity");
+            // String vicinity = googlePlace.get("vicinity");
 
             double lat = Double.parseDouble(googlePlace.get("lat"));
             double lng = Double.parseDouble(googlePlace.get("lng"));
@@ -48,7 +48,7 @@ public class GetNearByPlacesData extends AsyncTask<Object, String, String> {
 
             LatLng latLng = new LatLng(lat, lng);
             markerOptions.position(latLng);
-            markerOptions.title(placeName+" : "+vicinity);
+            markerOptions.title(placeName);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
              // markerOptions.draggable(true);
             markerOptions.snippet(placeName);

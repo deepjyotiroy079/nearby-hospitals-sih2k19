@@ -27,7 +27,7 @@ import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
 public class HospitalActivity extends AppCompatActivity {
     ArrayList<String> hospitalArrayList = new ArrayList<>();
-    private static final String HOSPITAL_NAME_URL = "http://192.168.43.47/hospital/getHospitalNames.php";
+    private static final String HOSPITAL_NAME_URL = "http://192.168.43.47/hospital/getHospitalInfo.php";
     private SpinnerDialog spinnerDialog;
     private Button hospital_btn;
     private Context context;

@@ -18,6 +18,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -32,6 +38,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
@@ -44,18 +53,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient client;
     private LocationRequest request;
     Location lastLocation;
+    private static String GET_BEDS_URL = "http://192.168.43.47/hospital/getHospitalInfoByName.php?hospital_name=";
     private Marker currentLocationMarker; // this is a marker
     public static final int REQUEST_LOCATION_CODE = 99;
     GetNearByPlacesData getNearByPlacesData;
     int PROXIMITY_RADIUS = 10000;
     public double latitude, longitude;
-
+    private String hospitalName;
+    private TextView total_bed_count;
+    private TextView available_beds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
@@ -113,20 +125,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     View row = getLayoutInflater().inflate(R.layout.custom_snippet, null);
                     TextView hospital_name = (TextView)row.findViewById(R.id.hospital_name);
                     // TextView hospital_location = (TextView)row.findViewById(R.id.hospital_location);
-                    TextView total_bed_count = (TextView)row.findViewById(R.id.total_bed_count);
-                    TextView available_beds = (TextView)row.findViewById(R.id.available_beds);
+                    total_bed_count = (TextView)row.findViewById(R.id.total_bed_count);
+                    available_beds = (TextView)row.findViewById(R.id.available_beds);
 
                     LatLng latLng = marker.getPosition();
-
+                    hospitalName = marker.getTitle();
                     /**Name of the hospital + the vicinity*/
-                    hospital_name.setText(marker.getTitle());
-
+                    hospital_name.setText(hospitalName);
+                    String test = hospitalName.replace(" ", "+");
+                    Toast.makeText(MapsActivity.this, test, Toast.LENGTH_SHORT).show();
                     /**Number of total beds*/
                     // total_bed_count.setText("Total Beds : 250");
 
                     /**Number of available beds*/
                     // available_beds.setText("Vacant beds: 200");
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_BEDS_URL+test, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject ob = new JSONObject(response);
+                                JSONArray array = ob.getJSONArray("beds");
+                                JSONObject data = array.getJSONObject(0);
+                                int t_beds = Integer.parseInt(data.getString("Total_beds"));
+                                int a_beds = Integer.parseInt(data.getString("Total_beds_vacant"));
 
+                                total_bed_count.setText("Total Beds : "+t_beds);
+                                available_beds.setText("Available Beds : "+a_beds);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(MapsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    RequestQueue requestQueue = Volley.newRequestQueue(MapsActivity.this);
+                    requestQueue.add(stringRequest);
                     return row;
                 }
             });
@@ -176,7 +212,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
         googlePlaceUrl.append("&type="+nearbyPlace);
         googlePlaceUrl.append("&sensor=true");
-        googlePlaceUrl.append("&key="+"YOUR_API_HERE");
+        googlePlaceUrl.append("&key="+"AIzaSyCRzc11BAQZJ4s2hyjOq3iqQA2V0DyqyGs");
 
         Log.d("MapsActivity", "url = "+googlePlaceUrl.toString());
 
